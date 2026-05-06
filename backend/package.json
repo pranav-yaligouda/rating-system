@@ -1,0 +1,19 @@
+{
+  "name": "ratingsystem-backend",
+  "version": "1.0.0",
+  "description": "rating system for stores",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranav-yaligouda/rating-system.git"
+  },
+  "author": "Pranav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pranav-yaligouda/rating-system/issues"
+  },
+  "homepage": "https://github.com/pranav-yaligouda/rating-system#readme"
+}
