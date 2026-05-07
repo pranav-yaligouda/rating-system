@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { User } from '../models/index.js';
-import { validatePassword } from '../utils/passwodValidator.js';
+import { validatePassword } from '../utils/passwordValidator.js';
 import { generateToken } from '../utils/generateToken.js';
 
 
@@ -86,13 +86,13 @@ export const login = async (req, res) => {
         //Find user by email
         const user = await User.findOne({ where: {email} });
         if(!user) {
-            res.status(401).json({message: 'Invalid email'});
+            return res.status(401).json({message: 'Invalid email'});
         }
 
         //Compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) {
-            res.status(401).json({message: 'Invalid password'});
+           return res.status(401).json({message: 'Invalid password'});
         }
 
         //Generate token
@@ -133,7 +133,7 @@ export const updatePassword = async (req, res ) => {
         }
 
         //Fetch user with  password 
-        const user  = await user.findByPk(userId);
+        const user  = await User.findByPk(userId);
         if(!user){
             return res.status(400).json({message: 'User not found'});
         }
