@@ -113,7 +113,7 @@ export const creatUser = async (req, res) => {
 
 export const getAllStores = async (req, res) => {
     try {
-        const {name, email, address, sortBy = 'name', order = 'ASC' } = req.body;
+        const {name, email, address, sortBy = 'name', order = 'ASC' } = req.query;
 
         const allowedSortColumns = ['name','email','address','createdAt'];
         const safeSortBy = allowedSortColumns.includes(sortBy) ? sortBy : 'name';
