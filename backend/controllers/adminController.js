@@ -42,7 +42,7 @@ export const getAllUsers = async (req, res) => {
     });
     res.json(users);
     } catch (error) {
-        console.error('Get all users error');
+        console.error('Get all users error', error);
         res.status(500).json({ message: 'Server error fetching users'});
     }
 };
@@ -82,7 +82,7 @@ export const creatUser = async (req, res) => {
         //Check email uniqueness
         const existingUser = await User.findOne({ where: {email} });
         if(existingUser) {
-            return res.status(400).json({ message: 'User with this email already exists.'});
+            return res.status(409).json({ message: 'User with this email already exists.'});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -94,7 +94,7 @@ export const creatUser = async (req, res) => {
             role
         });
 
-        res.status(200).json({
+        res.status(201).json({
             message: 'User Created Successfully',
             user : {
                 id: newUser.id,
@@ -177,7 +177,7 @@ export const addStore = async (req, res) => {
         //Email uniqueness
         const existingStore = await Store.findOne({ where: {email}});
         if (existingStore) {
-            return res.status(400).json({ message: 'A store with this email already exists'});
+            return res.status(409).json({ message: 'A store with this email already exists'});
         }
 
         const newStore = await Store.create({
