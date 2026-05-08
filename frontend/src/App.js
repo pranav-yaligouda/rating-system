@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { Toaster } from 'react-hot-toast';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import UpdatePassword from './pages/UpdatePassword';
+import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
+import OwnerDashboard from './pages/OwnerDashboard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Toaster position="top-right" />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/update-password" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
+          <Route path="/admin/*" element={<ProtectedRoute requiredRole="admin"><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/user/*" element={<ProtectedRoute requiredRole="normal"><UserDashboard /></ProtectedRoute>} />
+          <Route path="/owner/*" element={<ProtectedRoute requiredRole="owner"><OwnerDashboard /></ProtectedRoute>} />
+          <Route path="/" element={<Navigate to="/login" />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
