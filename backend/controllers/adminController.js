@@ -161,7 +161,7 @@ export const addStore = async (req, res) => {
     try {
         const { name, email, address, ownerId} = req.body;
 
-        if(!name, !email, !address, !ownerId) {
+        if(!name || !email || !address || !ownerId) {
             return res.status(400).json({ message: 'All fields are required name email address ownerId'});
         }
 
